@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes Made Easy</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <header class="header">
+
+        <div class="banner">
+            <h1 class="title">Recipes Made Easy</h1>
+        </div>
+        <div class="logo">
+            <img src="resources\plateSilverware.png" alt="Logo icon of plate and silverware" >
+        </div>
+
+    </header>
+    <br>
+    <main>
+
+        <div class="directions">
+
+            <h2>Welcome</h2>
+            <p>Use this app to find the perfect recipe to meet your dietary requirements!</p>
+
+        </div>
+
+        <div class="filterContainer">
+
+            <form action="" id="recipeFilters">
+                <h3>Filter the recipes as much as you'd like:</h3>
+                <div class="dishName">
+                    <label for="dishName">Name or Type of Dish:</label>
+                    <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'">
+                </div>
+                <p>or:</p>
+                <div class="cuisineType">
+                    <label for="cuisineType">Choose a Cuisine:</label>
+                    <select name="cuisineType" id="cuisineType">
+
+                        <option value="any">Any</option>
+                        <option value="american">American</option>
+                        <option value="asian">Asian</option>
+                        <option value="british">British</option>
+                        <option value="caribbean">Caribbean</option>
+                        <option value="central europe">Central Europe</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="eastern europe">Eastern Europe</option>
+                        <option value="french">French</option>
+                        <option value="indian">Indian</option>
+                        <option value="italian">Italian</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="kosher">Kosher</option>
+                        <option value="mediterranean">Mediterranean</option>
+                        <option value="mexican">Mexican</option>
+                        <option value="middle eastern">Middle Eastern</option>
+                        <option value="nordic">Nordic</option>
+                        <option value="south american">South American</option>
+                        <option value="south east asian">South East Asian</option>
+
+                    </select>
+                </div>
+            </form>
+
+        </div>
+
+
+        
+    </main>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</html>

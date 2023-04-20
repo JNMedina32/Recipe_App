@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400&display=swap');
+
+:root {
+    --main: #82EEFD;
+    --secondary: #016064;
+    --white: white;
+    --black: black;
+    --border: 1px solid black;
+}
+* {
+    font-family: 'Darker Grotesque', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: var(--main);
+    color: var(--white);
+    text-align: center;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--secondary);
+    height: 5rem;
+}
+.banner {
+    padding-top: 1.5rem;
+    align-items: center;
+    padding-left: 40%;
+    font-size: 1.5rem;
+    line-height: 50%;
+}
+img {
+    height: 100%;
+    width: auto;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.directions {
+    background-color: var(--secondary);
+    font-size: 1.5rem;
+    padding: 50px;
+
+}
+.filterContainer {
+    width: max-content;
+    border: var(--border);
+    padding: .5rem 0;
+    margin: .5rem 0;
+}
+form {
+    background-color: var(--secondary);
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+}
+.dishName {
+    border: var(--border);
+    width: 100%;
+    
+}
+
+
+
+
+
+@media (max-width:1200px) {
+    
+    .header {
+        justify-content: space-evenly;
+        margin: 0;
+    }
+    .banner {
+        padding: 1rem;
+        font-size: 1.5rem;
+    }
+
+}
+@media (max-width:768px) {
+    
+    .banner {
+        font-size: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+}
+@media (max-width:475px){
+
+    .banner {
+        font-size: 1rem;
+    }
+
+    img {
+        width: auto;
+    }
+
+}
