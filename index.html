@@ -34,12 +34,13 @@
             <form action="" id="recipeFilters">
                 <h3>Filter the recipes as much as you'd like:</h3>
                 <div class="dishName">
-                    <label for="dishName">Name or Type of Dish:</label>
+                    <label for="dishName" class="filterTitle">Name or Type of Dish:</label>
                     <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'">
                 </div>
                 <p>or:</p>
                 <div class="cuisineType">
-                    <label for="cuisineType">Choose a Cuisine:</label>
+                    <label for="cuisineType" class="filterTitle">Choose a Cuisine:</label>
+
                     <select name="cuisineType" id="cuisineType">
 
                         <option value="any">Any</option>
@@ -63,6 +64,19 @@
                         <option value="south east asian">South East Asian</option>
 
                     </select>
+
+                </div>
+
+                <div class="diet">
+                        <p class="filterTitle">Specific Diet:</p>
+                        <label><input type="radio" value="none" name="diet">None</label>
+                        <label><input type="radio" value="balanced" name="diet">Balanced</label>
+                        <label><input type="radio" value="high-fiber" name="diet">High-fiber</label>
+                        <label><input type="radio" value="high-protein" name="diet">High-protein</label>
+                        <label><input type="radio" value="low-carb" name="diet">Low-carb</label>
+                        <label><input type="radio" value="low-fat" name="diet">Low-fat</label>
+                        <label><input type="radio" value="low-sodium" name="diet">Low-sodium</label>
+
                 </div>
             </form>
 
