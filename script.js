@@ -4,6 +4,24 @@ const baseURL = `https://api.edamam.com/api/recipes/v2?type=any`;
 const appID = ``;
 const appKey = ``;
 
+//Grabbing the radio input for meal type
+const mealType = document.getElementsByName('mealType');
+
+const mealChecked = () => {
+    for(var meal of mealType){
+        if(meal.checked) {
+            if(meal.value != 'Any'){
+                return meal.value
+            } else return;
+        }
+    }
+}
+console.log(mealChecked());
+
+//grabing the dropdown selection for Dish Type
+const dishType = document.getElementsByClassName('dishType');
+console.log(dishType);
+
 const getRecipeByDish = async (name) => {
     const specificDish = `q=${name}`;
     const urlToFetch = `${baseURL}&${specificDish}&${appID}&${appKey}`;
