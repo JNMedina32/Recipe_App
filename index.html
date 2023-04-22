@@ -22,146 +22,129 @@
     <br>
     <main>
 
-        <div class="directions">
-
-            <h2>Welcome</h2>
-            <p>Use this app to find the perfect recipe to meet your dietary requirements!</p>
-
-        </div>
-
-        <div class="filterContainer">
-
-            <form action="" id="recipeFilters">
-                <h3>Filter the recipes as much as you'd like:</h3>
-                <div class="dishName">
-                    <label for="dishName" class="filterTitle">Name or Type of Dish:</label>
-                    <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'">
-                </div>
-                <p>or:</p>
-                <div class="cuisineType">
-                    <label for="cuisineType" class="filterTitle">Choose a Cuisine:</label>
-
-                    <select name="cuisineType" id="cuisineType">
-                        <option value="any">Any</option>
-                        <option value="american">American</option>
-                        <option value="asian">Asian</option>
-                        <option value="british">British</option>
-                        <option value="caribbean">Caribbean</option>
-                        <option value="central europe">Central Europe</option>
-                        <option value="chinese">Chinese</option>
-                        <option value="eastern europe">Eastern Europe</option>
-                        <option value="french">French</option>
-                        <option value="indian">Indian</option>
-                        <option value="italian">Italian</option>
-                        <option value="japanese">Japanese</option>
-                        <option value="kosher">Kosher</option>
-                        <option value="mediterranean">Mediterranean</option>
-                        <option value="mexican">Mexican</option>
-                        <option value="middle eastern">Middle Eastern</option>
-                        <option value="nordic">Nordic</option>
-                        <option value="south american">South American</option>
-                        <option value="south east asian">South East Asian</option>
-                    </select>
-
-                </div>
-
-                <div class="dietLabel">
-                    <label for="dietLabel" class="filterTitle">Specific Diet:</label>
-
-                    <select name="dietLabel" id="dietLabel">
-                        <option value="none">None</option>
-                        <option value="balanced">Balanced</option>
-                        <option value="high-fiber">High-fiber</option>
-                        <option value="high-protein">High-protein</option>
-                        <option value="low-carb">Low-carb</option>
-                        <option value="low-fat">Low-fat</option>
-                        <option value="low-sodium">Low-sodium</option>
-                    </select>
-
-                </div>
-
-                <div class="healthLabel">
-                    <label for="healthLabel" class="filterTitle">Choose a health label</label>
-
-                        <select name="healthLabel" id="healthLabel">
-                            <option value="none">None</option>
-                            <option value="Alcohol-Cocktail">Alcohol-Cocktail</option>
-                            <option value="Alcohol-Free">Alcohol-Free</option>
-                            <option value="Celery-Free">Celery-Free</option>
-                            <option value="Crustacean-Free">Crustacean-Free</option>
-                            <option value="Dairy-Free">Dairy-Free</option>
-                            <option value="DASH">Dash</option>
-                            <option value="Egg-Free">Egg-Free</option>
-                            <option value="Fish-Free">Fish-Free</option>
-                            <option value="Fodmap-Free">Fodmap-Free</option>
-                            <option value="Gluten-Free">Gluten-Free</option>
-                            <option value="Immuno-Supportive">Immuno-Supportive</option>
-                            <option value="Keto-Friendly">Keto-Friendly</option>
-                            <option value="Kidney-Friendly">Kidney-Friendly</option>
-                            <option value="Kosher">Kosher</option>
-                            <option value="Low-Fat-Abs">Low-Fat-Abs</option>
-                            <option value="Low-Potassium">Low-Potassium</option>
-                            <option value="Low-Sugar">Low-Sugar</option>
-                            <option value="Lupine-free">Lupine-free</option>
-                            <option value="Mediterranean">Mediterranean</option>
-                            <option value="Mollusk-Free">Mollusk-Free</option>
-                            <option value="Mustard-Free">Mustard-Free</option>
-                            <option value="No-Oil-Added">No-Oil-Added</option>
-                            <option value="Paleo">Paleo</option>
-                            <option value="Peanut-Free">Peanut-Free</option>
-                            <option value="Pescatarian">Pescatarian</option>
-                            <option value="Pork-Free">Pork-Free</option>
-                            <option value="Red-Meat-Free">Red-Meat-Free</option>
-                            <option value="Sesame-Free">Sesame-Free</option>
-                            <option value="Shellfish-Free">Shellfish-Free</option>
-                            <option value="Soy-Free">Soy-Free</option>
-                            <option value="Suagr-Conscious">Suagr-Conscious</option>
-                            <option value="Sulfite-Free">Sulfite-Free</option>
-                            <option value="Tree-Nut-Free">Tree-Nut-Free</option>
-                            <option value="Vegan">Vegan</option>
-                            <option value="Vegetarian">Vegetarian</option>
-                            <option value="Wheat-Free">Wheat-Free</option>
-                        </select>
-
-                </div>
-
-                <div class="mealType">
-                    <label class="filterTitle">Meal:</label>
-                    <label><input type="radio" name="mealType" value="Any">Any</label>
-                    <label><input type="radio" name="mealType" value="Breakfast" checked>Breakfast</label>
-                    <label><input type="radio" name="mealType" value="Lunch">Lunch</label>
-                    <label><input type="radio" name="mealType" value="Dinner">Dinner</label>
-                </div>
-
-                <div class="dishType">
-                    <label for="dishType" class="filterTitle">Dish Type:</label>
-
-                    <select name="dishType" id="dishType">
-                        <option value="none">None</option>
-                        <option value="Biscuits%20and%20Cookies" selected>Biscuits and cookies</option>
-                        <option value="Bread">Bread</option>
-                        <option value="Cereals">Cereals</option>
-                        <option value="Condiments%20and%20sauces">Condiments and sauces</option>
-                        <option value="Desserts">Desserts</option>
-                        <option value="low-sodium">Low-sodium</option>
-                    </select>
-
-                </div>
-
-                <div class="submitBtn">
-                    <button type="submit" id="submitBtn">Search for Recipes</button>
-                </div>
-            </form>
-
-        </div>
-
-        <div class="resultContainer">
-
-            <div class="imgContainer">
-                <img src="resources/practiceImg.jpg" alt="" class="firstImg">
+        <div class="content">
+            <div class="directions">
+                <h2>Welcome</h2>
+                <p>Use this app to find the perfect recipe to meet your dietary requirements!</p>
             </div>
-
-
+            <div class="mainContainer">
+                <div class="filterContainer">
+                    <h3>Filter the recipes as much as you'd like:</h3>
+                    <div class="dishName">
+                        <label for="dishName" class="filterTitle">Name or Type of Dish:</label>
+                        <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'">
+                    </div>
+                    <form action="" id="recipeFilters">
+            
+                        <p>and / or:</p>
+                        <div class="cuisineType">
+                            <label for="cuisineType" class="filterTitle">Choose a Cuisine:</label>
+                            <select name="cuisineType" id="cuisineType">
+                                <option value="any">Any</option>
+                                <option value="american">American</option>
+                                <option value="asian">Asian</option>
+                                <option value="british">British</option>
+                                <option value="caribbean">Caribbean</option>
+                                <option value="central europe">Central Europe</option>
+                                <option value="chinese">Chinese</option>
+                                <option value="eastern europe">Eastern Europe</option>
+                                <option value="french">French</option>
+                                <option value="indian">Indian</option>
+                                <option value="italian">Italian</option>
+                                <option value="japanese">Japanese</option>
+                                <option value="kosher">Kosher</option>
+                                <option value="mediterranean">Mediterranean</option>
+                                <option value="mexican">Mexican</option>
+                                <option value="middle eastern">Middle Eastern</option>
+                                <option value="nordic">Nordic</option>
+                                <option value="south american">South American</option>
+                                <option value="south east asian">South East Asian</option>
+                            </select>
+                        </div>
+                        <div class="dietLabel">
+                            <label for="diet" class="filterTitle">Specific Diet:</label>
+                            <select name="diet" id="diet">
+                                <option value="any">Any</option>
+                                <option value="balanced">Balanced</option>
+                                <option value="high-fiber">High-fiber</option>
+                                <option value="high-protein">High-protein</option>
+                                <option value="low-carb">Low-carb</option>
+                                <option value="low-fat">Low-fat</option>
+                                <option value="low-sodium">Low-sodium</option>
+                            </select>
+                        </div>
+                        <div class="healthLabel">
+                            <label for="healthLabel" class="filterTitle">Choose a health label</label>
+                                <select name="healthLabel" id="healthLabel">
+                                    <option value="any">Any</option>
+                                    <option value="Alcohol-Cocktail">Alcohol-Cocktail</option>
+                                    <option value="Alcohol-Free">Alcohol-Free</option>
+                                    <option value="Celery-Free">Celery-Free</option>
+                                    <option value="Crustacean-Free">Crustacean-Free</option>
+                                    <option value="Dairy-Free">Dairy-Free</option>
+                                    <option value="DASH">Dash</option>
+                                    <option value="Egg-Free">Egg-Free</option>
+                                    <option value="Fish-Free">Fish-Free</option>
+                                    <option value="Fodmap-Free">Fodmap-Free</option>
+                                    <option value="Gluten-Free">Gluten-Free</option>
+                                    <option value="Immuno-Supportive">Immuno-Supportive</option>
+                                    <option value="Keto-Friendly">Keto-Friendly</option>
+                                    <option value="Kidney-Friendly">Kidney-Friendly</option>
+                                    <option value="Kosher">Kosher</option>
+                                    <option value="Low-Fat-Abs">Low-Fat-Abs</option>
+                                    <option value="Low-Potassium">Low-Potassium</option>
+                                    <option value="Low-Sugar">Low-Sugar</option>
+                                    <option value="Lupine-free">Lupine-free</option>
+                                    <option value="Mediterranean">Mediterranean</option>
+                                    <option value="Mollusk-Free">Mollusk-Free</option>
+                                    <option value="Mustard-Free">Mustard-Free</option>
+                                    <option value="No-Oil-Added">No-Oil-Added</option>
+                                    <option value="Paleo">Paleo</option>
+                                    <option value="Peanut-Free">Peanut-Free</option>
+                                    <option value="Pescatarian">Pescatarian</option>
+                                    <option value="Pork-Free">Pork-Free</option>
+                                    <option value="Red-Meat-Free">Red-Meat-Free</option>
+                                    <option value="Sesame-Free">Sesame-Free</option>
+                                    <option value="Shellfish-Free">Shellfish-Free</option>
+                                    <option value="Soy-Free">Soy-Free</option>
+                                    <option value="Suagr-Conscious">Suagr-Conscious</option>
+                                    <option value="Sulfite-Free">Sulfite-Free</option>
+                                    <option value="Tree-Nut-Free">Tree-Nut-Free</option>
+                                    <option value="Vegan">Vegan</option>
+                                    <option value="Vegetarian">Vegetarian</option>
+                                    <option value="Wheat-Free">Wheat-Free</option>
+                                </select>
+                        </div>
+                        <div class="mealType">
+                            <label for="mealtype">Meal:</label>
+                            <select name="mealType" id="mealType">
+            
+                                <option value="any">Any</option>
+                                <option value="Breakfast" checked>Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                            </select>
+                        </div>
+                        <div class="dishType">
+                            <label for="dishType" class="filterTitle">Dish Type:</label>
+                            <select name="dishType" id="dishType">
+                                <option value="any" selected>Any</option>
+                                <option value="Biscuits and Cookies">Biscuits and cookies</option>
+                                <option value="Bread">Bread</option>
+                                <option value="Cereals">Cereals</option>
+                                <option value="Condiments and sauces">Condiments and sauces</option>
+                                <option value="Desserts">Desserts</option>
+                                <option value="low-sodium">Low-sodium</option>
+                            </select>
+                        </div>
+                        <div class="submitBtn">
+                            <button type="submit" id="submitBtn">Search for Recipes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="resultContainer">
+            </div>
         </div>
 
         

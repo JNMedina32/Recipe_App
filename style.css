@@ -34,34 +34,30 @@ img {
     height: 100%;
     width: auto;
 }
-main {
+.content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 .directions {
     background-color: var(--secondary);
     font-size: 1.5rem;
     padding: 50px;
-
 }
 .filterContainer {
-    width: max-content;
+    width: 50rem;
     border: var(--border);
     padding: .5rem 0;
     margin: .5rem 0;
-}
-form {
+    font-size: 2rem;
     background-color: var(--secondary);
+    justify-content: space-between;
+    align-items: space-between;
+}   
+form {
     padding: 0;
     margin: 0;
-    font-size: 1.5rem;
-}
-.dishName {
-    border: var(--border);
-    width: 100%;
-    
+    justify-content: space-between;
 }
 
 

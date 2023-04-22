@@ -9,12 +9,55 @@ const urlToFetch = `${baseURL}&${appID}&${appKey}`;
 const resultContainer = document.querySelector('.resultContainer');
 const imgContainer = document.querySelector('.imgContainer');
 const firstImgTag = document.querySelector('.firstImg');
-const paramArray = [];
-const formEl = document.forms.recipeFilters;
-console.log(formEl);
-const formData = new FormData(formEl);
-console.log(formData);
-const name = formData.get('value');
+
+const submitButton = document.querySelector('#submitBtn');
+
+//grabs the form key and values 
+const formEl = document.querySelector('#recipeFilters');
+
+
+submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const paramArray = [];
+    for (let i = 0; i < formEl.elements.length; i++){
+        var e = formEl.elements[i];
+        if(e.value != 'any'){
+        paramArray.push(encodeURIComponent(e.name) + "=" + encodeURIComponent(e.value));
+        }
+    };
+    const queryStrings = paramArray.join('&');
+    console.log(queryStrings);
+    async function submitBtn(){
+        const fetchURL = `${urlToFetch}&${queryStrings}`;
+        try{
+            const response = await fetch(fetchURL);
+            if(response.ok){
+                const jsonResponse = await response.json();
+                const hits = jsonResponse.hits;
+                console.log(jsonResponse);
+                console.log(hits);
+                if(hits.length < 1){
+                    resultContainer.innerHTML = `I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong>`
+                }else {
+                    resultContainer.innerHTML = ``;
+                    hits.forEach(recipe => {
+                        resultContainer.innerHTML += `
+                        <h3>${recipe.recipe.label}</h3>
+                        <img src=${recipe.recipe.images.SMALL.url}>
+                        `;
+                    })
+                }
+            }
+        }catch(error){
+            console.log(error);
+        }
+    };
+    submitBtn();
+});
+
+
+
+
 
 //Grabbing the radio input for meal type
 const mealType = document.getElementsByName('mealType');
@@ -57,23 +100,20 @@ function dropdownSelection(dropdown){
     return selectedOption.value;
 } 
 //dropdownSelection(dishType);
-async function submitBtn(){
-    let dishTypeSelected = dropdownSelection(dishType);
-    if(dishTypeSelected != 'None'){
-        paramArray.push(dishTypeSelected)
-    } 
-    const param = `&dishType=${paramArray[0]}`;
-    const fetchURL = `${urlToFetch}${param}`;
-    try{
-        const response = await fetch(fetchURL);
-        if(response.ok){
-            const jsonResponse = await response.json();
-            const hits = jsonResponse.hits;
-            const imgSrc = hits[0].recipe.images.THUMBNAIL.url;
-            firstImgTag.setAttribute('src', imgSrc);
-        }
-    }catch(error){
-        console.log(error);
-    }
-};
+// async function submitBtn(){
+
+//     const param = `&dishType=${paramArray[0]}`;
+//     const fetchURL = `${urlToFetch}${param}`;
+//     try{
+//         const response = await fetch(fetchURL);
+//         if(response.ok){
+//             const jsonResponse = await response.json();
+//             const hits = jsonResponse.hits;
+//             const imgSrc = hits[0].recipe.images.THUMBNAIL.url;
+//             firstImgTag.setAttribute('src', imgSrc);
+//         }
+//     }catch(error){
+//         console.log(error);
+//     }
+// };
 // console.log(submitBtn())
