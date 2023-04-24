@@ -17,6 +17,11 @@ body {
     color: var(--white);
     text-align: center;
 }
+main {
+    align-items: center;
+    margin-top: 0;
+    justify-content: center;
+}
 .header {
     display: flex;
     justify-content: flex-end;
@@ -39,8 +44,9 @@ body {
     width: auto;
 }
 .content {
-    display: flex;
-    flex-direction: column;
+    display: block;
+    justify-content: space-evenly;
+    margin-left: 0;
 }
 .directions {
     background-color: var(--secondary);
@@ -49,25 +55,53 @@ body {
 }
 .mainContainer{
     display: flex;
-    gap: 2rem;
+    justify-content: space-evenly;
 }
+
 .savedContainer{
     background-color: var(--secondary);
-    margin-top: .5rem;
     margin-left: .5rem;
+    margin-top: .5rem;
     width: 20vw;
     height: fit-content;
+    position: sticky;
+    z-index: 10;
+    border: 1px solid white;
 }
+
 .filterContainer {
     width: 50rem;
     border: var(--border);
     padding: .5rem 0;
     margin-top: .5rem;
+    margin-left: 1rem;
     font-size: 2rem;
     background-color: var(--secondary);
-    justify-content: space-between;
-    align-items: space-between;
-}   
+    display: '';
+}
+.refilterButton{
+    background-color: var(--secondary);
+    border: 2px solid white;
+    font-size: 1.5rem;
+    color: var(--white);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: none;
+    cursor: pointer;
+    border-radius: 16px; 
+    position: relative;
+} 
+.refilterButton:hover{
+    background-color: var(--main);
+    color: var(--black);
+    border: 2px solid black;
+}
+.refilter{
+    width: fit-content;
+
+}
+
 select{
     width: 50%;
     font-size: 20px;
@@ -78,9 +112,17 @@ input{
 }
 .resultContainer{
     background-color: var(--secondary);
+    display: flex;
+    flex-direction: column;
     width: fit-content;
-    margin: 10px 50px;
     font-size: 2rem;
+    justify-content: center;
+    margin: 3rem;
+}
+.results{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .individualRecipe{
     margin: 1rem;
@@ -118,6 +160,7 @@ input{
     background-color: var(--secondary);
     color: var(--white);
 }
+
 
 
 

@@ -9,58 +9,102 @@ const urlToFetch = `${baseURL}${appID}${appKey}`;
 const resultContainer = document.querySelector('.resultContainer');
 const submitButton = document.querySelector('#submitBtn');
 const filterContainer = document.querySelector('.filterContainer');
+
+
 const savedContainer = document.querySelector('.savedContainer');
-const userInput = document.querySelector('#userInput').value;
-const savedRecipes = document.querySelector('#savedRecipes');
+const refilterBtn = document.querySelector('.refilterButton')
+const contentDiv = document.querySelector('.content');
 
 //grabs the form key and values pairs
 const formEl = document.querySelector('#recipeFilters');
 
-//saves recipes to the side and local storage 
-
-// savedRecipes.addEventListener('click', () => {
-//     savedContainer.innerHTML += `
-//     <div class='saves'>
-//     <img src=${hits.recipe.recipe.images.THUMBNAIL.url}>
-//     <h3>${hits.recipe.recipe.label}</h3>
-//     </div>
-//     `
-// })
-//saves recipes to the side and local storage 
-const saveRecipe = () => {
-    savedContainer.innerHTML += `
-    <div class='saves'>
-    <img src=${recipe.recipe.images.THUMBNAIL.url}>
-    <h3>${this.recipe.recipe.label}</h3>
-    </div>
-    `
-};
-
+//each recipe result assumes this class
+class Recipe {
+    constructor(recipe){
+        this._label = recipe.recipe.label;
+        this._calories = recipe.recipe.calories.toFixed(2);
+        this._imgSmall = recipe.recipe.images.SMALL.url;
+        this._imgThumb = recipe.recipe.images.THUMBNAIL.url;
+        this._ingredients = recipe.recipe.ingredientLines;
+        this._prep = recipe.recipe.url;
+        this._time = recipe.recipe.totalTime;
+    }
+    get label(){return this._label}
+    get calories(){return this._calories}
+    get imgSmall(){return this._imgSmall}
+    get imgThumb(){return this._imgThumb}
+    get ingredients(){return this._ingredients}
+    get prep(){return this._prep}
+    get time(){return this._time}
 
 
-//function to dynamically display to html
-function displayRecipes(hits){ 
-    hits.forEach(recipe => {
-        let calories = recipe.recipe.calories.toFixed(2);
+    saveRecipe(recipe){
+        
+        let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')); 
+        if(!savedRecipes){
+            savedRecipes = [];
+        }
+        savedRecipes.push({
+            label: this.label,
+            imgThumb: this.imgThumb
+        });  
+        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+    };
+
+    displayRecipe(){
+
         resultContainer.innerHTML += `
         <div class='individualRecipe'>
-        <h3>${recipe.recipe.label}</h3>
-        <img src=${recipe.recipe.images.SMALL.url}>
-        <p class='calories'><strong>Calories: ${calories} Time: ${recipe.recipe.totalTime}</strong></p>
-        <p>Ingredients: ${recipe.recipe.ingredientLines}</p>
+        <h3>${this.label}</h3>
+        <img src=${this.imgSmall}>
+        <p class='calories'><strong>Calories: ${this.calories} Time: ${this.time}</strong></p>
+        <p>Ingredients: ${this.ingredients}</p>
         </div>
         <div class='prepAndSave'>
-        <a href="${recipe.recipe.url}" target='_blank' class='buttons'>How to Prepare</a> <div class='buttons' id='savedRecipes' onclick='saveRecipe()'>Save Recipe</div>
+        <a href="${this.prep}" target='_blank' class='buttons'>How to Prepare</a> 
+        <div class='buttons save-recipe' id='savedRecipes'>Save Recipe</div>
         </div>
-        `;  
+        `;
+        const saveButtons = document.querySelectorAll('.save-recipe');
+
+        saveButtons.forEach(saveButton => {
+            saveButton.addEventListener('click', () => {
+                const savedRecipe = document.createElement('div');
+                savedRecipe.className = 'savedRecipe';
+                savedRecipe.innerHTML = `
+                <h4>${this.label}</h4>
+                <img src=${this.imgThumb}>
+                `;
+                savedContainer.append(savedRecipe);
+                this.saveRecipe(this);
+            })
+        })
+    }
+}
+function hideFilter(){
+    filterContainer.style.display = 'none';
+    refilterBtn.style.display = 'inline-block';
+
+}
+function displayRecipes(hits){ 
+    hits.forEach(recipe => {
+        recipe = new Recipe(recipe);
+        recipe.displayRecipe();
     })
 };
+refilterBtn.addEventListener('click', () => {
+    filterContainer.style.display = '';
+    refilterBtn.style.display = 'none';
+    contentDiv.style.gap = '.5rem';
+})
+
 
 
 
 //grabs filters then fetches
 submitButton.addEventListener('click', (e) => {
     e.preventDefault();
+    const userInput = document.querySelector('#userInput').value;
     const paramArray = [];
     for (let i = 0; i < formEl.elements.length; i++){
         var e = formEl.elements[i];
@@ -87,6 +131,7 @@ submitButton.addEventListener('click', (e) => {
                 }else {
                     resultContainer.innerHTML = ``;
                     displayRecipes(hits);
+                    hideFilter();
                 }
             }
         }catch(error){
@@ -96,20 +141,19 @@ submitButton.addEventListener('click', (e) => {
     submitBtn();
 });
 
-const getRecipeByDish = async (name) => {
-    const specificDish = `q=${name}`;
-    const urlToFetchByDish = `${baseURL}&${specificDish}&${appID}&${appKey}`;
-    try{
-        const repsonse = await fetch(urlToFetchByDish);
-        if(repsonse.ok){
-            const jsonResponse = await repsonse.json();
-            const hits = jsonResponse.hits;
-            console.log(jsonResponse)
-            console.log(hits[0])
-            console.log(hits[0]['recipe']['label'])
-        }
-    }catch(error){
-        console.log(error);
-    };
-};
+window.addEventListener('load', () => {
+    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes'));
+    if(savedRecipes){
+        savedRecipes.forEach(savedRecipe => {
+            const savedRecipeDiv = document.createElement('div');
+            savedRecipeDiv.className = 'savedRecipe';
+            savedRecipeDiv.innerHTML = `
+                <h4>${savedRecipe.label}</h4>
+                <img src=${savedRecipe.imgThumb}>
+            `;
+            savedContainer.append(savedRecipeDiv);
+        });
+    }
+});
+
 
