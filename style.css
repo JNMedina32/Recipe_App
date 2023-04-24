@@ -5,7 +5,7 @@
     --secondary: #016064;
     --white: white;
     --black: black;
-    --border: 1px solid black;
+    --border: 3px solid var(--main);
 }
 * {
     font-family: 'Darker Grotesque', sans-serif;
@@ -19,14 +19,18 @@ body {
 }
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     background-color: var(--secondary);
     height: 5rem;
+    gap: 10rem;
+}
+.title{
+    justify-content: center;
 }
 .banner {
     padding-top: 1.5rem;
     align-items: center;
-    padding-left: 40%;
+    text-align: center;
     font-size: 1.5rem;
     line-height: 50%;
 }
@@ -45,33 +49,59 @@ body {
 }
 .mainContainer{
     display: flex;
+    gap: 2rem;
 }
 .savedContainer{
     background-color: var(--secondary);
     margin-top: .5rem;
     margin-left: .5rem;
     width: 20vw;
+    height: fit-content;
 }
 .filterContainer {
     width: 50rem;
     border: var(--border);
     padding: .5rem 0;
     margin-top: .5rem;
-    margin-left: 10rem;
     font-size: 2rem;
     background-color: var(--secondary);
     justify-content: space-between;
     align-items: space-between;
 }   
 select{
-    width: 100%;
+    width: 50%;
     font-size: 20px;
 }
 input{
-    width: 90%;
+    width: 50%;
     font-size: 20px;
 }
-#submitBtn{
+.resultContainer{
+    background-color: var(--secondary);
+    width: fit-content;
+    margin: 10px 50px;
+    font-size: 2rem;
+}
+.individualRecipe{
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.resultContainer .calories{
+    background-color: var(--white);
+    color: var(--black);
+    text-transform: uppercase;
+    width: fit-content;
+}
+.resultContainer .prepAndSave {
+    border-bottom: var(--border);
+    margin: 1rem;
+    padding: 1rem;
+}
+.buttons{
     background-color: var(--main);
     border: 2px solid white;
     font-size: 1.5rem;
@@ -84,10 +114,11 @@ input{
     cursor: pointer;
     border-radius: 16px;
 }
-#submitBtn:hover {
+.buttons:hover {
     background-color: var(--secondary);
     color: var(--white);
 }
+
 
 
 

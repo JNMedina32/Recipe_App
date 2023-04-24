@@ -12,7 +12,7 @@
     <header class="header">
 
         <div class="banner">
-            <h1 class="title">Recipes Made Easy</h1>
+            <h1 class="title">Finding the Perfect Recipes Just Got Easy</h1>
         </div>
         <div class="logo">
             <img src="resources\plateSilverware.png" alt="Logo icon of plate and silverware" class="logo">
@@ -29,19 +29,20 @@
             </div>
             <div class="mainContainer">
                 <div class="savedContainer">
-                    <h3>Saved Recipes:</h3>
+                    <h2>Saved Recipes:</h2>
                 </div>
                 <div class="filterContainer">
                     <h3>Filter the recipes as much as you'd like:</h3>
                     <div class="dishName">
                         <label for="dishName" class="filterTitle">Name or Type of Dish:</label>
-                        <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'">
+                        <br>
+                        <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'" id="userInput">
                     </div>
                     <form action="" id="recipeFilters">
             
                         <p>and / or:</p>
                         <div class="cuisineType">
-                            <div><label for="cuisineType" class="filterTitle">Choose a Cuisine:</label></div>
+                            <label for="cuisineType" class="filterTitle">Choose a Cuisine:</label><br>
                             <select name="cuisineType" id="cuisineType">
                                 <option value="any">Any</option>
                                 <option value="american">American</option>
@@ -65,7 +66,7 @@
                             </select>
                         </div>
                         <div class="dietLabel">
-                            <label for="diet" class="filterTitle">Specific Diet:</label>
+                            <label for="diet" class="filterTitle">Specific Diet:</label><br>
                             <select name="diet" id="diet">
                                 <option value="any">Any</option>
                                 <option value="balanced">Balanced</option>
@@ -77,49 +78,49 @@
                             </select>
                         </div>
                         <div class="healthLabel">
-                            <label for="healthLabel" class="filterTitle">Choose a health label</label>
-                                <select name="healthLabel" id="healthLabel">
+                            <label for="healthLabel" class="filterTitle">Choose a health label</label><br>
+                                <select name="health" id="healthLabel">
                                     <option value="any">Any</option>
-                                    <option value="Alcohol-Cocktail">Alcohol-Cocktail</option>
-                                    <option value="Alcohol-Free">Alcohol-Free</option>
-                                    <option value="Celery-Free">Celery-Free</option>
-                                    <option value="Crustacean-Free">Crustacean-Free</option>
-                                    <option value="Dairy-Free">Dairy-Free</option>
+                                    <option value="alcohol-cocktail">Alcohol-Cocktail</option>
+                                    <option value="alcohol-free">Alcohol-Free</option>
+                                    <option value="celery-free">Celery-Free</option>
+                                    <option value="crustacean-free">Crustacean-Free</option>
+                                    <option value="dairy-free">Dairy-Free</option>
                                     <option value="DASH">Dash</option>
-                                    <option value="Egg-Free">Egg-Free</option>
-                                    <option value="Fish-Free">Fish-Free</option>
-                                    <option value="Fodmap-Free">Fodmap-Free</option>
-                                    <option value="Gluten-Free">Gluten-Free</option>
-                                    <option value="Immuno-Supportive">Immuno-Supportive</option>
-                                    <option value="Keto-Friendly">Keto-Friendly</option>
-                                    <option value="Kidney-Friendly">Kidney-Friendly</option>
-                                    <option value="Kosher">Kosher</option>
-                                    <option value="Low-Fat-Abs">Low-Fat-Abs</option>
-                                    <option value="Low-Potassium">Low-Potassium</option>
-                                    <option value="Low-Sugar">Low-Sugar</option>
-                                    <option value="Lupine-free">Lupine-free</option>
+                                    <option value="egg-free">Egg-Free</option>
+                                    <option value="fish-free">Fish-Free</option>
+                                    <option value="fodmap-free">Fodmap-Free</option>
+                                    <option value="gluten-free">Gluten-Free</option>
+                                    <option value="immuno-supportive">Immuno-Supportive</option>
+                                    <option value="keto-friendly">Keto-Friendly</option>
+                                    <option value="kidney-friendly">Kidney-Friendly</option>
+                                    <option value="kosher">Kosher</option>
+                                    <option value="low-fat-abs">Low-Fat-Abs</option>
+                                    <option value="low-potassium">Low-Potassium</option>
+                                    <option value="low-sugar">Low-Sugar</option>
+                                    <option value="lupine-free">Lupine-free</option>
                                     <option value="Mediterranean">Mediterranean</option>
-                                    <option value="Mollusk-Free">Mollusk-Free</option>
-                                    <option value="Mustard-Free">Mustard-Free</option>
-                                    <option value="No-Oil-Added">No-Oil-Added</option>
-                                    <option value="Paleo">Paleo</option>
-                                    <option value="Peanut-Free">Peanut-Free</option>
-                                    <option value="Pescatarian">Pescatarian</option>
-                                    <option value="Pork-Free">Pork-Free</option>
-                                    <option value="Red-Meat-Free">Red-Meat-Free</option>
-                                    <option value="Sesame-Free">Sesame-Free</option>
-                                    <option value="Shellfish-Free">Shellfish-Free</option>
-                                    <option value="Soy-Free">Soy-Free</option>
-                                    <option value="Suagr-Conscious">Suagr-Conscious</option>
-                                    <option value="Sulfite-Free">Sulfite-Free</option>
-                                    <option value="Tree-Nut-Free">Tree-Nut-Free</option>
-                                    <option value="Vegan">Vegan</option>
-                                    <option value="Vegetarian">Vegetarian</option>
-                                    <option value="Wheat-Free">Wheat-Free</option>
+                                    <option value="mollusk-free">Mollusk-Free</option>
+                                    <option value="mustard-free">Mustard-Free</option>
+                                    <option value="no-oil-added">No-Oil-Added</option>
+                                    <option value="paleo">Paleo</option>
+                                    <option value="peanut-free">Peanut-Free</option>
+                                    <option value="pescatarian">Pescatarian</option>
+                                    <option value="pork-free">Pork-Free</option>
+                                    <option value="red-meat-free">Red-Meat-Free</option>
+                                    <option value="sesame-free">Sesame-Free</option>
+                                    <option value="shellfish-free">Shellfish-Free</option>
+                                    <option value="soy-free">Soy-Free</option>
+                                    <option value="suagr-conscious">Suagr-Conscious</option>
+                                    <option value="sulfite-free">Sulfite-Free</option>
+                                    <option value="tree-nut-free">Tree-Nut-Free</option>
+                                    <option value="vegan">Vegan</option>
+                                    <option value="vegetarian">Vegetarian</option>
+                                    <option value="wheat-free">Wheat-Free</option>
                                 </select>
                         </div>
                         <div class="mealType">
-                            <label for="mealtype">Meal:</label>
+                            <label for="mealtype">Meal:</label><br>
                             <select name="mealType" id="mealType">
             
                                 <option value="any">Any</option>
@@ -129,7 +130,7 @@
                             </select>
                         </div>
                         <div class="dishType">
-                            <label for="dishType" class="filterTitle">Dish Type:</label>
+                            <label for="dishType" class="filterTitle">Dish Type:</label><br>
                             <select name="dishType" id="dishType">
                                 <option value="any" selected>Any</option>
                                 <option value="Biscuits and Cookies">Biscuits and cookies</option>
@@ -140,8 +141,15 @@
                                 <option value="low-sodium">Low-sodium</option>
                             </select>
                         </div>
+                        <div class="caloriesAndTime">
+                            <label for="calories">Calories</label><br>
+                            <input type="text" name="calories" placeholder="e.g. 250+ for a minimum OR 250-500 for a range">
+                            <br>
+                            <label for="time">Prep Time</label><br>
+                            <input type="text" name="time">
+                        </div><br>
                         <div class="submitBtn">
-                            <button type="submit" id="submitBtn">Search for Recipes</button>
+                            <button type="submit" id="submitBtn" class="buttons">Search for Recipes</button>
                         </div>
                     </form>
                 </div>
