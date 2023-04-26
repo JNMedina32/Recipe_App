@@ -20,7 +20,16 @@ body {
 main {
     align-items: center;
     margin-top: 0;
-    justify-content: center;
+}
+
+
+.ingredients{
+    margin: 1rem;
+    display: inline-block;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
 }
 .header {
     display: flex;
@@ -33,11 +42,10 @@ main {
     justify-content: center;
 }
 .banner {
-    padding-top: 1.5rem;
+
     align-items: center;
     text-align: center;
     font-size: 1.5rem;
-    line-height: 50%;
 }
 .logo {
     height: 100%;
@@ -116,19 +124,17 @@ input{
     flex-direction: column;
     width: fit-content;
     font-size: 2rem;
-    justify-content: center;
     margin: 3rem;
 }
 .results{
     display: flex;
     justify-content: center;
-    align-items: center;
+
 }
 .individualRecipe{
     margin: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 1rem;
 }

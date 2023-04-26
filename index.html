@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipes Made Easy</title>
     <link rel="stylesheet" href="style.css">
-    
+
 </head>
+
 <body>
     <header class="header">
 
         <div class="banner">
-            <h1 class="title">Finding the Perfect Recipes Just Got Easy</h1>
+            <h1 class="title">Search for Recipes</h1>
         </div>
         <div class="logo">
             <img src="resources\plateSilverware.png" alt="Logo icon of plate and silverware" class="logo">
@@ -20,21 +22,21 @@
 
     </header>
     <br>
-    
+
     <main>
         <div class="directions">
             <h2>Welcome</h2>
             <p>Use this app to find the perfect recipe to meet your dietary requirements!</p>
         </div>
-        
-        
+
+
         <div class="content">
-           
+
             <div class="mainContainer">
                 <div class="extra">
                     <div class="savedContainer">
                         <h2>Saved Recipes:</h2>
-                    
+
                     </div>
                 </div>
                 <div class="filterContainer">
@@ -42,10 +44,11 @@
                     <div class="dishName">
                         <label for="dishName" class="filterTitle">Name or Type of Dish:</label>
                         <br>
-                        <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'" id="userInput">
+                        <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'"
+                            id="userInput">
                     </div>
                     <form action="" id="recipeFilters">
-            
+
                         <p>and / or:</p>
                         <div class="cuisineType">
                             <label for="cuisineType" class="filterTitle">Choose a Cuisine:</label><br>
@@ -85,45 +88,45 @@
                         </div>
                         <div class="healthLabel">
                             <label for="healthLabel" class="filterTitle">Choose a health label</label><br>
-                                <select name="health" id="healthLabel">
-                                    <option value="any">Any</option>
-                                    <option value="alcohol-cocktail">Alcohol-Cocktail</option>
-                                    <option value="alcohol-free">Alcohol-Free</option>
-                                    <option value="celery-free">Celery-Free</option>
-                                    <option value="crustacean-free">Crustacean-Free</option>
-                                    <option value="dairy-free">Dairy-Free</option>
-                                    <option value="DASH">Dash</option>
-                                    <option value="egg-free">Egg-Free</option>
-                                    <option value="fish-free">Fish-Free</option>
-                                    <option value="fodmap-free">Fodmap-Free</option>
-                                    <option value="gluten-free">Gluten-Free</option>
-                                    <option value="immuno-supportive">Immuno-Supportive</option>
-                                    <option value="keto-friendly">Keto-Friendly</option>
-                                    <option value="kidney-friendly">Kidney-Friendly</option>
-                                    <option value="kosher">Kosher</option>
-                                    <option value="low-fat-abs">Low-Fat-Abs</option>
-                                    <option value="low-potassium">Low-Potassium</option>
-                                    <option value="low-sugar">Low-Sugar</option>
-                                    <option value="lupine-free">Lupine-free</option>
-                                    <option value="Mediterranean">Mediterranean</option>
-                                    <option value="mollusk-free">Mollusk-Free</option>
-                                    <option value="mustard-free">Mustard-Free</option>
-                                    <option value="no-oil-added">No-Oil-Added</option>
-                                    <option value="paleo">Paleo</option>
-                                    <option value="peanut-free">Peanut-Free</option>
-                                    <option value="pescatarian">Pescatarian</option>
-                                    <option value="pork-free">Pork-Free</option>
-                                    <option value="red-meat-free">Red-Meat-Free</option>
-                                    <option value="sesame-free">Sesame-Free</option>
-                                    <option value="shellfish-free">Shellfish-Free</option>
-                                    <option value="soy-free">Soy-Free</option>
-                                    <option value="suagr-conscious">Suagr-Conscious</option>
-                                    <option value="sulfite-free">Sulfite-Free</option>
-                                    <option value="tree-nut-free">Tree-Nut-Free</option>
-                                    <option value="vegan">Vegan</option>
-                                    <option value="vegetarian">Vegetarian</option>
-                                    <option value="wheat-free">Wheat-Free</option>
-                                </select>
+                            <select name="health" id="healthLabel">
+                                <option value="any">Any</option>
+                                <option value="alcohol-cocktail">Alcohol-Cocktail</option>
+                                <option value="alcohol-free">Alcohol-Free</option>
+                                <option value="celery-free">Celery-Free</option>
+                                <option value="crustacean-free">Crustacean-Free</option>
+                                <option value="dairy-free">Dairy-Free</option>
+                                <option value="DASH">Dash</option>
+                                <option value="egg-free">Egg-Free</option>
+                                <option value="fish-free">Fish-Free</option>
+                                <option value="fodmap-free">Fodmap-Free</option>
+                                <option value="gluten-free">Gluten-Free</option>
+                                <option value="immuno-supportive">Immuno-Supportive</option>
+                                <option value="keto-friendly">Keto-Friendly</option>
+                                <option value="kidney-friendly">Kidney-Friendly</option>
+                                <option value="kosher">Kosher</option>
+                                <option value="low-fat-abs">Low-Fat-Abs</option>
+                                <option value="low-potassium">Low-Potassium</option>
+                                <option value="low-sugar">Low-Sugar</option>
+                                <option value="lupine-free">Lupine-free</option>
+                                <option value="Mediterranean">Mediterranean</option>
+                                <option value="mollusk-free">Mollusk-Free</option>
+                                <option value="mustard-free">Mustard-Free</option>
+                                <option value="no-oil-added">No-Oil-Added</option>
+                                <option value="paleo">Paleo</option>
+                                <option value="peanut-free">Peanut-Free</option>
+                                <option value="pescatarian">Pescatarian</option>
+                                <option value="pork-free">Pork-Free</option>
+                                <option value="red-meat-free">Red-Meat-Free</option>
+                                <option value="sesame-free">Sesame-Free</option>
+                                <option value="shellfish-free">Shellfish-Free</option>
+                                <option value="soy-free">Soy-Free</option>
+                                <option value="suagr-conscious">Suagr-Conscious</option>
+                                <option value="sulfite-free">Sulfite-Free</option>
+                                <option value="tree-nut-free">Tree-Nut-Free</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="wheat-free">Wheat-Free</option>
+                            </select>
                         </div>
                         <div class="mealType">
                             <label for="mealtype">Meal:</label><br>
@@ -148,7 +151,8 @@
                         </div>
                         <div class="caloriesAndTime">
                             <label for="calories">Calories</label><br>
-                            <input type="text" name="calories" placeholder="e.g. 250+ for a minimum OR 250-500 for a range">
+                            <input type="text" name="calories"
+                                placeholder="e.g. 250+ for a minimum OR 250-500 for a range">
                             <br>
                             <label for="time">Prep Time</label><br>
                             <input type="text" name="time">
@@ -161,14 +165,15 @@
                 <div class="refilter">
                     <div class="refilterButton">Search Again</div>
                 </div>
-                
-        </div>
-        <div class='results'>
-            <div class="resultContainer">
+
             </div>
-        </div>
+            <div class='results'>
+                <div class="resultContainer">
+                </div>
+            </div>
     </main>
 
 </body>
-    <script src="script.js"></script>
+<script src="script.js"></script>
+
 </html>
