@@ -10,12 +10,12 @@ const resultContainer = document.querySelector('.resultContainer');
 const submitButton = document.querySelector('#submitBtn');
 const filterContainer = document.querySelector('.filterContainer');
 
-
+const savedRecipeArray = [];
 const savedContainer = document.querySelector('.savedContainer');
 const refilterBtn = document.querySelector('.refilterButton')
 const contentDiv = document.querySelector('.content');
 
-//grabs the form key and values pairs
+//grabs the filter forms key and values pairs
 const formEl = document.querySelector('#recipeFilters');
 
 //each recipe result assumes this class
@@ -40,19 +40,6 @@ class Recipe {
 	get time(){return this._time}
 
 
-	saveRecipe(recipe){
-		
-		let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')); 
-		if(!savedRecipes){
-			savedRecipes = [];
-		}
-		savedRecipes.push({
-			label: this.label,
-			imgThumb: this.imgThumb
-		});  
-		localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-	};
-
 	displayRecipe(){
 		
 		resultContainer.innerHTML += `
@@ -66,47 +53,31 @@ class Recipe {
 		</div>
 		<div class='prepAndSave'>
 		<a href="${this.prep}" target='_blank' class='buttons'>How to Prepare</a> 
-		<div class='buttons save-recipe' onclick='saveARecipe(${this.label})'>Save Recipe</div>
+		<div class='buttons save-recipe' onclick='saveRecipeToLocalStorage("${this.label}","${this.imgThumb}","${this.calories}","${this.prep}")'>Save Recipe</div>
 		</div>
 		`;
 	}
 
 }
+//hides the filter form and displays results
 function hideFilter(){
 	filterContainer.style.display = 'none';
 	refilterBtn.style.display = 'inline-block';
 
 }
+//function that creates new instances of the Recipe class, then used their displayRecipe method to show the recipes to the user
 function displayRecipes(hits){ 
 	hits.forEach(recipe => {
 		recipe = new Recipe(recipe);
 		recipe.displayRecipe();
 	})
 };
+//reshows the filter form and hides the refilterBtn
 refilterBtn.addEventListener('click', () => {
 	filterContainer.style.display = '';
 	refilterBtn.style.display = 'none';
 	contentDiv.style.gap = '.5rem';
 })
-
-//needs to FETCH from edamam the specific label in the q parameter, then append desired info to saved container.
-async function saveARecipe(recipeLabel){
-	let fetchUrl = `${baseURL}&q=${encodeURIComponent(recipeLabel)}${appID}${appKey}`;
-	try{
-		const response = await fetch(fetchUrl);
-		if(response.ok){
-			const jsonResponse = await response.json();
-			const hits = jsonResponse.hits;
-			const savedRecipe = document.createElement('div');
-			savedRecipe.className = 'savedRecipe';
-			savedRecipe.innerHTML += `<h4>${hits.recipe.recipe.label}</h4><img src=${hits.recipe.recipe.images.THUMBNAIL.url}>`;
-			savedContainer.append(savedRecipe);
-		}
-	}catch(error){
-		console.log(error)
-	}
-}
-
 
 
 //grabs filters then fetches
@@ -133,9 +104,11 @@ submitButton.addEventListener('click', (e) => {
 			const response = await fetch(fetchURL);
 			if(response.ok){
 				const jsonResponse = await response.json();
+				console.log(jsonResponse);
 				const hits = jsonResponse.hits;
 				console.log(hits);
 				if(hits.length < 1){
+					hideFilter();
 					resultContainer.innerHTML = `I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong>`
 				}else {
 					resultContainer.innerHTML = ``;
@@ -149,20 +122,49 @@ submitButton.addEventListener('click', (e) => {
 	};
 	submitBtn();
 });
-
+//displays localStorage on load using retrieveLocalStorage function
 window.addEventListener('load', () => {
-	const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes'));
+	retrieveLocalStorage();
+});
+//grabs the recipe info when called and saves to the localStorage and savedContainer 
+function saveRecipeToLocalStorage(recipeLabel, recipeThumb, recipeCalories, recipeUrl, id = "recipeID_" + Date.now()){
+	savedRecipeArray.push({
+		label: recipeLabel, 
+		imgThumb: recipeThumb,
+		calories: recipeCalories,
+		url: recipeUrl,
+		id: id
+	});
+	localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
+	const savedRecipeDiv = document.createElement('div');
+			savedRecipeDiv.className = 'savedRecipe';
+			savedRecipeDiv.innerHTML = `<h4>${recipeLabel}</h4><img src=${recipeThumb}><br><h4>Calories: ${recipeCalories}</h4><a href='${recipeUrl}' target="_blank" class='buttons2'>View</a><div class="buttons2" id="${id}">Delete</div>`;
+			savedContainer.append(savedRecipeDiv);
+			const deleteSavedRecipeBtn = savedRecipeDiv.querySelector(`#${id}`);
+			deleteSavedRecipeBtn.addEventListener('click', () => {
+				savedRecipeDiv.remove();
+				const indexToRemove = savedRecipeArray.findIndex(recipe => recipe.label === recipeLabel);
+				savedRecipeArray.splice(indexToRemove, 1);
+				localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
+});
+}
+//displays all recipes in localStorage
+function retrieveLocalStorage(){
+	const savedRecipes = JSON.parse(localStorage.getItem('savedRecipeArray'));
 	if(savedRecipes){
-		savedRecipes.forEach(savedRecipe => {
+		savedRecipes.forEach((savedRecipe, index) => {
+			savedRecipeArray.push(savedRecipe);
 			const savedRecipeDiv = document.createElement('div');
 			savedRecipeDiv.className = 'savedRecipe';
-			savedRecipeDiv.innerHTML = `
-				<h4>${savedRecipe.label}</h4>
-				<img src=${savedRecipe.imgThumb}>
-			`;
+			savedRecipeDiv.innerHTML = `<h4>${savedRecipe.label}</h4><img src=${savedRecipe.imgThumb}><br><h4>Calories: ${savedRecipe.calories}</h4><a href='${savedRecipe.url}' target="_blank" class='buttons2'>View</a><div class="buttons2" id="deleteBtn${index}">Delete</div>`;
 			savedContainer.append(savedRecipeDiv);
+			const deleteSavedRecipeBtn = savedRecipeDiv.querySelector(`#deleteBtn${index}`);
+			deleteSavedRecipeBtn.addEventListener('click', () => {
+				savedRecipeDiv.remove();
+				const indexToRemove = savedRecipeArray.findIndex(recipe => recipe.label === savedRecipe.label);
+				savedRecipeArray.splice(indexToRemove, 1);
+				localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
+			});
 		});
 	}
-});
-
-
+};
