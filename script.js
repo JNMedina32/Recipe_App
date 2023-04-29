@@ -1,18 +1,16 @@
 console.log('Running Recipe App')
 //Variables for the fetch
-const baseURL = `https://api.edamam.com/api/recipes/v2?type=public`;
-const appID = ``;
-const appKey = ``;
-const urlToFetch = `${baseURL}${appID}${appKey}`;
+const baseURL = `https://api.edamam.com/api/recipes/v2?type=public&`;
+const proxyServer = `https://safe-recipe-app-jnm.deno.dev`
+const nextURL = [];
 
 //variables for dynamic html
 const resultContainer = document.querySelector('.resultContainer');
 const submitButton = document.querySelector('#submitBtn');
 const filterContainer = document.querySelector('.filterContainer');
-
 const savedRecipeArray = [];
 const savedContainer = document.querySelector('.savedContainer');
-const refilterBtn = document.querySelector('.refilterButton')
+const refilterBtn = document.querySelector('.refilterButton');
 const contentDiv = document.querySelector('.content');
 
 //grabs the filter forms key and values pairs
@@ -39,7 +37,6 @@ class Recipe {
 	get prep(){return this._prep}
 	get time(){return this._time}
 
-
 	displayRecipe(){
 		
 		resultContainer.innerHTML += `
@@ -57,28 +54,31 @@ class Recipe {
 		</div>
 		`;
 	}
-
 }
+
 //hides the filter form and displays results
 function hideFilter(){
 	filterContainer.style.display = 'none';
 	refilterBtn.style.display = 'inline-block';
-
 }
-//function that creates new instances of the Recipe class, then used their displayRecipe method to show the recipes to the user
+
+/**
+ * used on the submit button for the results from the fetch
+ * @param {*} hits the result from the fetch
+ */
 function displayRecipes(hits){ 
+	resultContainer.innerHTML = ``;
 	hits.forEach(recipe => {
 		recipe = new Recipe(recipe);
 		recipe.displayRecipe();
 	})
 };
-//reshows the filter form and hides the refilterBtn
+//shows the filter form and hides the refilterBtn
 refilterBtn.addEventListener('click', () => {
 	filterContainer.style.display = '';
 	refilterBtn.style.display = 'none';
 	contentDiv.style.gap = '.5rem';
 })
-
 
 //grabs filters then fetches
 submitButton.addEventListener('click', (e) => {
@@ -93,35 +93,68 @@ submitButton.addEventListener('click', (e) => {
 	};
 
 	const queryStrings = paramArray.join('&');
-
+	
 	async function submitBtn(){
-		let fetchURL = `${urlToFetch}&${queryStrings}`;
-		if(userInput){
-			const userInputQueryString = `&q=${encodeURIComponent(userInput)}`;
-			fetchURL = `${baseURL}${userInputQueryString}${appID}${appKey}&${queryStrings}`
-		}
+		const userInputQueryString = `&q=${encodeURIComponent(userInput)}`;
+
 		try{
-			const response = await fetch(fetchURL);
+			const response = await fetch(`${proxyServer}?${userInputQueryString}&${queryStrings}`);
+			
 			if(response.ok){
-				const jsonResponse = await response.json();
+				let jsonResponse = await response.json();
 				console.log(jsonResponse);
 				const hits = jsonResponse.hits;
-				console.log(hits);
+				nextURL.push(jsonResponse._links.next.href);
+				console.log(nextURL);
 				if(hits.length < 1){
 					hideFilter();
 					resultContainer.innerHTML = `I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong>`
 				}else {
-					resultContainer.innerHTML = ``;
 					displayRecipes(hits);
 					hideFilter();
+					resultContainer.innerHTML += `
+					<div class="buttons" onclick='nextRecipes(${nextURL[0]})'>Next</div>
+					`;
 				}
 			}
 		}catch(error){
 			console.log(error);
+			hideFilter();
+			resultContainer.innerHTML = error + `<br>I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong> If you are searching for a specific dish, please check your spelling and try again.`
 		}
 	};
 	submitBtn();
+
+	function nextRecipes(nextUrlToFetch) {
+		async function fetchNext(){
+			try{
+				const response = await fetch(nextUrlToFetch);
+				if(response.ok){
+					let jsonResponse = await response.json();
+					console.log(jsonResponse);
+					const hits = jsonResponse.hits;
+					if(hits.length < 1){
+						hideFilter();
+						resultContainer.innerHTML = `I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong>`
+					}else {
+						hideFilter();
+						displayRecipes(hits);
+						resultContainer.innerHTML += `
+						<div class="buttons" onclick="nextRecipes()">Next</div>
+						`;
+					}
+				}
+			}catch(error){
+				console.log(error);
+				hideFilter();
+				resultContainer.innerHTML = error + `<br>I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong> If you are searching for a specific dish, please check your spelling and try again.`
+			}
+		};
+		fetchNext();
+	}
 });
+
+
 //displays localStorage on load using retrieveLocalStorage function
 window.addEventListener('load', () => {
 	retrieveLocalStorage();
