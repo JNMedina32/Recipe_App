@@ -52,8 +52,6 @@ p{
 }
 #savedRecipes{
     height: fit-content;
-    position: sticky;
-    top: 1px;
 }
 #refilterButton{
     background-color: var(--main);
