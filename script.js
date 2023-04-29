@@ -1,18 +1,16 @@
-console.log('Running Recipe App')
 //Variables for the fetch
 const baseURL = `https://api.edamam.com/api/recipes/v2?type=public&`;
 const proxyServer = `https://safe-recipe-app-jnm.deno.dev`
-const nextURL = [];
 
 //variables for dynamic html
-const resultContainer = document.querySelector('.resultContainer');
+const resultContainer = document.querySelector('#resultContainer');
 const submitButton = document.querySelector('#submitBtn');
-const filterContainer = document.querySelector('.filterContainer');
+const filterContainer = document.querySelector('#filterContainer');
 const savedRecipeArray = [];
-const savedContainer = document.querySelector('.savedContainer');
-const refilterBtn = document.querySelector('.refilterButton');
+const savedContainer = document.querySelector('#savedRecipes');
+const refilterDiv = document.querySelector('#refilterDiv');
 const contentDiv = document.querySelector('.content');
-
+const refilterBtn = document.querySelector('#refilterButton')
 //grabs the filter forms key and values pairs
 const formEl = document.querySelector('#recipeFilters');
 
@@ -41,9 +39,9 @@ class Recipe {
 		
 		resultContainer.innerHTML += `
 		<div class='individualRecipe'>
-		<h3>${this.label}</h3><br>
+		<h2>${this.label}</h2><br>
 		<img src=${this.imgSmall}><br>
-		<p class='calories'><strong>Calories: ${this.calories} Time: ${this.time}</strong></p><br>
+		<p class='calories'><strong>Calories: ${this.calories}	<br> Time: ${this.time} mins</strong></p><br>
 		<div class='ingredients'>
 		<p>Ingredients: ${this.ingredients}</p>
 		</div><br>
@@ -59,7 +57,7 @@ class Recipe {
 //hides the filter form and displays results
 function hideFilter(){
 	filterContainer.style.display = 'none';
-	refilterBtn.style.display = 'inline-block';
+	refilterDiv.style.display = 'inline-block';
 }
 
 /**
@@ -73,12 +71,21 @@ function displayRecipes(hits){
 		recipe.displayRecipe();
 	})
 };
+function displayMoreRecipes(hits){ 
+	hits.forEach(recipe => {
+		recipe = new Recipe(recipe);
+		recipe.displayRecipe();
+	})
+};
 //shows the filter form and hides the refilterBtn
 refilterBtn.addEventListener('click', () => {
 	filterContainer.style.display = '';
 	refilterBtn.style.display = 'none';
 	contentDiv.style.gap = '.5rem';
 })
+
+//unique id for the loadMore button 
+let loadMoreId = 1;
 
 //grabs filters then fetches
 submitButton.addEventListener('click', (e) => {
@@ -96,7 +103,7 @@ submitButton.addEventListener('click', (e) => {
 	
 	async function submitBtn(){
 		const userInputQueryString = `&q=${encodeURIComponent(userInput)}`;
-
+		const nextURL = [];
 		try{
 			const response = await fetch(`${proxyServer}?${userInputQueryString}&${queryStrings}`);
 			
@@ -112,8 +119,9 @@ submitButton.addEventListener('click', (e) => {
 				}else {
 					displayRecipes(hits);
 					hideFilter();
+					resultContainer.style.display = 'inline-block';
 					resultContainer.innerHTML += `
-					<div class="buttons" onclick='nextRecipes(${nextURL[0]})'>Next</div>
+					<div class="buttons" id="loadMore${loadMoreId}" onclick='nextRecipes("${nextURL[0]}")'>Load More</div>
 					`;
 				}
 			}
@@ -124,36 +132,37 @@ submitButton.addEventListener('click', (e) => {
 		}
 	};
 	submitBtn();
-
-	function nextRecipes(nextUrlToFetch) {
-		async function fetchNext(){
-			try{
-				const response = await fetch(nextUrlToFetch);
-				if(response.ok){
-					let jsonResponse = await response.json();
-					console.log(jsonResponse);
-					const hits = jsonResponse.hits;
-					if(hits.length < 1){
-						hideFilter();
-						resultContainer.innerHTML = `I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong>`
-					}else {
-						hideFilter();
-						displayRecipes(hits);
-						resultContainer.innerHTML += `
-						<div class="buttons" onclick="nextRecipes()">Next</div>
-						`;
-					}
-				}
-			}catch(error){
-				console.log(error);
-				hideFilter();
-				resultContainer.innerHTML = error + `<br>I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong> If you are searching for a specific dish, please check your spelling and try again.`
-			}
-		};
-		fetchNext();
-	}
 });
 
+function nextRecipes(nextUrlToFetch) {
+	document.querySelector('#loadMore' + loadMoreId).style.display = 'none';
+	loadMoreId += 1;
+	async function fetchNext(){
+		const nextURL = [];
+		try{
+			const response = await fetch(nextUrlToFetch);
+			if(response.ok){
+				let jsonResponse = await response.json();
+				console.log(jsonResponse);
+				const hits = jsonResponse.hits;
+				nextURL.push(jsonResponse._links.next.href);
+				if(hits.length < 1){
+					resultContainer.innerHTML += `<br>I apologize. We might have ran out of recipes for you. <strong>:(</strong>`
+				}else {
+					displayMoreRecipes(hits);
+					resultContainer.innerHTML += `
+					<div class="buttons" id="loadMore${loadMoreId}" onclick="nextRecipes('${nextURL[0]}')">Load More</div>
+					`;
+				}
+			}
+		}catch(error){
+			console.log(error);
+			hideFilter();
+			resultContainer.innerHTML += error + `<br>I apologize. We might have ran out of recipes for you.`
+		}
+	};
+	fetchNext();
+}
 
 //displays localStorage on load using retrieveLocalStorage function
 window.addEventListener('load', () => {
@@ -170,7 +179,8 @@ function saveRecipeToLocalStorage(recipeLabel, recipeThumb, recipeCalories, reci
 	});
 	localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
 	const savedRecipeDiv = document.createElement('div');
-			savedRecipeDiv.className = 'savedRecipe';
+			savedRecipeDiv.className = 'col';
+			savedRecipeDiv.setAttribute('id', 'savedRecipeDiv')
 			savedRecipeDiv.innerHTML = `<h4>${recipeLabel}</h4><img src=${recipeThumb}><br><h4>Calories: ${recipeCalories}</h4><a href='${recipeUrl}' target="_blank" class='buttons2'>View</a><div class="buttons2" id="${id}">Delete</div>`;
 			savedContainer.append(savedRecipeDiv);
 			const deleteSavedRecipeBtn = savedRecipeDiv.querySelector(`#${id}`);
@@ -179,7 +189,7 @@ function saveRecipeToLocalStorage(recipeLabel, recipeThumb, recipeCalories, reci
 				const indexToRemove = savedRecipeArray.findIndex(recipe => recipe.label === recipeLabel);
 				savedRecipeArray.splice(indexToRemove, 1);
 				localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
-});
+			});
 }
 //displays all recipes in localStorage
 function retrieveLocalStorage(){

@@ -16,93 +16,66 @@ body {
     background-color: var(--main);
     color: var(--white);
     text-align: center;
+    width: 100%;
 }
 
-.ingredients{
-    margin: 1rem;
-    display: inline-block;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+h1{
+    font-size: 4rem;
+}
+h2{
+    font-size: 3rem;
+}
+h3{
+    color: var(--black);
+    background-color: var(--white);
+}
+p{
+    font-size: 30px;
+}
+#banner, #savedRecipes, #filterContainer{
+    background-color: var(--secondary);
+}
+#saveAndFilter{
     gap: 1rem;
 }
-.header {
-    display: flex;
-    justify-content: center;
+#resultContainer{
     background-color: var(--secondary);
-    height: 5rem;
-    gap: 10rem;
+    display: none;
+    margin-top: 70px;
 }
-.title{
-    justify-content: center;
+#refilterButton{
+    height: fit-content;
 }
-.banner {
-
-    align-items: center;
-    text-align: center;
-    font-size: 1.5rem;
+#refilterDiv{
+    display: none;
+    height: fit-content;
 }
-.logo {
-    height: 100%;
-    width: auto;
-}
-.content {
-    display: block;
-    justify-content: space-evenly;
-    margin-left: 0;
-}
-.directions {
-    background-color: var(--secondary);
-    font-size: 1.5rem;
-    padding: 50px;
-}
-.mainContainer{
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.savedContainer{
-    background-color: var(--secondary);
-    margin-left: .5rem;
-    margin-top: .5rem;
-    width: 20vw;
+#savedRecipes{
     height: fit-content;
     position: sticky;
-    z-index: 10;
-    border: 1px solid white;
+    top: 1px;
 }
-
-.filterContainer {
-    width: 50rem;
-    border: var(--border);
-    padding: .5rem 0;
-    margin-top: .5rem;
-    margin-left: 1rem;
-    font-size: 2rem;
-    background-color: var(--secondary);
-    display: '';
-}
-.refilterButton{
-    background-color: var(--secondary);
+#refilterButton{
+    background-color: var(--main);
     border: 2px solid white;
     font-size: 1.5rem;
-    color: var(--white);
+    color: var(--black);
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
-    display: none;
     cursor: pointer;
     border-radius: 16px; 
-    position: relative;
+    position: sticky;
+    top: 1px;
+    justify-content: center;
 } 
-.refilterButton:hover{
-    background-color: var(--main);
-    color: var(--black);
+#refilterButton:hover{
+    background-color: var(--secondary);
+    color: var(--white);
     border: 2px solid black;
 }
-.refilter{
-    width: fit-content;
-
+#userInput{
+    width: 100%;
 }
 
 select{
@@ -113,20 +86,7 @@ input{
     width: 50%;
     font-size: 20px;
 }
-.resultContainer{
-    background-color: var(--secondary);
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    font-size: 2rem;
-    margin: 3rem;
-    width: fit-content;
-}
-.results{
-    display: flex;
-    justify-content: center;
-    width: fit-content;
-}
+
 .individualRecipe{
     margin: 1rem;
     display: flex;
@@ -134,13 +94,16 @@ input{
     align-items: center;
     gap: 1rem;
 }
-.resultContainer .calories{
+#resultContainer .ingredients{
+    font-size: larger;
+}
+#resultContainer .calories{
     background-color: var(--white);
     color: var(--black);
     text-transform: uppercase;
     width: fit-content;
 }
-.resultContainer .prepAndSave {
+#resultContainer .prepAndSave {
     border-bottom: var(--border);
     margin: 1rem;
     padding: 1rem;
@@ -178,107 +141,4 @@ input{
 .buttons2:hover {
     background-color: var(--secondary);
     color: var(--white);
-}
-
-
-
-
-
-
-
-
-
-
-
-@media (max-width:1200px) {
-    
-    .header {
-        justify-content: space-evenly;
-        margin: 0;
-        width: fit-content;
-    }
-    .banner {
-        font-size: 1rem;
-        width: fit-content;
-    }
-    .directions{
-        width: fit-content;
-        font-size: 1.1rem;
-    }
-    .mainContainer{
-        width: fit-content;
-    }
-    .savedContainer{
-        width: 6rem;
-        font-size: 1rem;
-    }
-    .filterContainer{
-        width: fit-content;
-        font-size: 1.2rem;
-    }
-    .results{
-        width: 50vw;
-        font-size: 1rem;
-    }
-    .resultContainer{
-        width: fit-content;
-        font-size: 1.2rem;
-        margin: 1rem;
-        align-items: flex-start;
-    }
-    .individualRecipe{
-        margin: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 1.1rem;
-    }
-
-}
-@media (max-width:768px) {
-    
-    .banner {
-        font-size: 1rem;
-
-    }
-
-}
-@media (max-width:500px){
-    .header{
-        padding: 0;
-        gap: 0;
-        align-items: center;
-        width: auto;
-        justify-content: flex-start;
-    }
-    .title{
-        margin-left: 50px;
-    }
-    .logo{
-        display: none;
-    }
-    .banner {
-        font-size: .5rem;
-    }
-    .mainContainer{
-        flex-direction: column;
-    }
-    .buttons{
-        font-size: .5rem;
-    }
-    .refilterButton{
-        margin: 5px;
-        font-size: 1rem;
-    }
-    .directions{
-        font-size: .53rem;
-        display: ;
-        text-align: center;
-    }
-    .individualRecipe{
-        gap: 0;
-    }
-    img{
-        width: 100%;
-    }
 }
