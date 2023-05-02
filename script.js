@@ -9,15 +9,17 @@ const filterContainer = document.querySelector('#filterContainer');
 const savedRecipeArray = [];
 const savedContainer = document.querySelector('#savedRecipes');
 const refilterDiv = document.querySelector('#refilterDiv');
-const contentDiv = document.querySelector('.content');
-const refilterBtn = document.querySelector('#refilterButton')
+const refilterBtn = document.querySelector('#refilterButton');
+let indvidualRecipe = document.createElement('div')
+indvidualRecipe.className = 'individualRecipe';
 //grabs the filter forms key and values pairs
 const formEl = document.querySelector('#recipeFilters');
 
 //each recipe result assumes this class
 class Recipe {
+
 	constructor(recipe){
-		this._label = recipe.recipe.label;
+		this._label = recipe.recipe.label.replace(/'/g, '');
 		this._calories = recipe.recipe.calories.toFixed(2);
 		this._imgSmall = recipe.recipe.images.SMALL.url;
 		this._imgThumb = recipe.recipe.images.THUMBNAIL.url;
@@ -26,6 +28,7 @@ class Recipe {
 		this._ingredients += `</ul>`;
 		this._prep = recipe.recipe.url;
 		this._time = recipe.recipe.totalTime;
+		this._cuisineType = recipe.recipe.cuisineType[0];
 	}
 	get label(){return this._label}
 	get calories(){return this._calories}
@@ -34,31 +37,96 @@ class Recipe {
 	get ingredients(){return this._ingredients}
 	get prep(){return this._prep}
 	get time(){return this._time}
+	get cuisineType(){return this._cuisineType}
 
+	
 	displayRecipe(){
-		
-		resultContainer.innerHTML += `
-		<div class='individualRecipe'>
-		<h2>${this.label}</h2><br>
+		let indvidualRecipe = document.createElement('div');
+		indvidualRecipe.className = 'individualRecipe';
+		indvidualRecipe.innerHTML += `
+		<h1 class="label">${this.label}</h1><br>
 		<img src=${this.imgSmall}><br>
 		<p class='calories'><strong>Calories: ${this.calories}	<br> Time: ${this.time} mins</strong></p><br>
 		<div class='ingredients'>
 		<p>Ingredients: ${this.ingredients}</p>
-		</div><br>
+		<br>
 		</div>
 		<div class='prepAndSave'>
 		<a href="${this.prep}" target='_blank' class='buttons'>How to Prepare</a> 
-		<div class='buttons save-recipe' onclick='saveRecipeToLocalStorage("${this.label}","${this.imgThumb}","${this.calories}","${this.prep}")'>Save Recipe</div>
+		<div class='buttons save-recipe' onclick='saveRecipeToLocalStorage("${this.label}", "${this.imgThumb}", "${this.calories}", "${this.prep}")'>Save Recipe</div>
 		</div>
 		`;
+		resultContainer.append(indvidualRecipe);
+		changeBgImgforIndividualRecipe(this.cuisineType);
 	}
 }
+
+//changes the background for specific cuisineType
+function changeBgImgforIndividualRecipe(typeOfCuisine){
+	switch (typeOfCuisine) {
+		case "american":
+			resultContainer.style.backgroundImage = "url(resources/americanFood.jpg)"
+			break;
+		case "asian":
+			resultContainer.style.backgroundImage = "url(resources/asianFood.jpg)"
+			break;
+		case "british":
+			resultContainer.style.backgroundImage = "url(resources/britishFood.jpg)"
+			break;
+		case "caribbean":
+			resultContainer.style.backgroundImage = "url(resources/caribbeanFood.jpg)"
+			break;
+		case "central europe":
+			resultContainer.style.backgroundImage = "url(resources/centralFood.jpg)"
+			break;
+		case "chinese":
+			resultContainer.style.backgroundImage = "url(resources/chineseFood.jpg)"
+			break;
+		case "eastern europe":
+			resultContainer.style.backgroundImage = "url(resources/easternFood.jpg)"
+			break;
+		case "french":
+			resultContainer.style.backgroundImage = "url(resources/frenchFood.jpg)"
+			break;
+		case "indian":
+			resultContainer.style.backgroundImage = "url(resources/indianFood.jpg)"
+			break;
+		case "italian":
+			resultContainer.style.backgroundImage = "url(resources/italianFood.jpg)"
+			break;
+		case "japanese":
+			resultContainer.style.backgroundImage = "url(resources/japaneseFood.jpg)"
+			break;
+		case "kosher":
+			resultContainer.style.backgroundImage = "url(resources/kosherFood.jpg)"
+			break;
+		case "mediterranean":
+			resultContainer.style.backgroundImage = "url(resources/mediterraneanFood.jpg)"
+			break;
+		case "mexican":
+			resultContainer.style.backgroundImage = "url(resources/mexicanFood.jpg)"
+			break;
+		case "middle eastern":
+			resultContainer.style.backgroundImage = "url(resources/middleFood.jpg)"
+			break;
+		case "nordic":
+			resultContainer.style.backgroundImage = "url(resources/nordicFood.jpg)"
+			break;
+		case "south american":
+			resultContainer.style.backgroundImage = "url(resources/southFood.jpg)"
+			break;
+		case "south east asian":
+			resultContainer.style.backgroundImage = "url(resources/southEastFood.jpg)"
+			break;
+		default:	
+	}
+};
 
 //hides the filter form and displays results
 function hideFilter(){
 	filterContainer.style.display = 'none';
 	refilterDiv.style.display = 'inline-block';
-}
+};
 
 /**
  * used on the submit button for the results from the fetch
@@ -79,9 +147,7 @@ function displayMoreRecipes(hits){
 };
 //shows the filter form and hides the refilterBtn
 refilterBtn.addEventListener('click', () => {
-	filterContainer.style.display = '';
-	refilterBtn.style.display = 'none';
-	contentDiv.style.gap = '.5rem';
+	filterContainer.style.display = null;
 })
 
 //unique id for the loadMore button 

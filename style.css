@@ -19,12 +19,6 @@ body {
     width: 100%;
 }
 
-h1{
-    font-size: 4rem;
-}
-h2{
-    font-size: 3rem;
-}
 h3{
     color: var(--black);
     background-color: var(--white);
@@ -78,11 +72,9 @@ p{
 
 select{
     width: 50%;
-    font-size: 20px;
 }
 input{
     width: 50%;
-    font-size: 20px;
 }
 
 .individualRecipe{
@@ -93,11 +85,11 @@ input{
     gap: 1rem;
 }
 #resultContainer .ingredients{
-    font-size: larger;
+    background-color: var(--secondary);
 }
 #resultContainer .calories{
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--secondary);
+    color: var(--white);
     text-transform: uppercase;
     width: fit-content;
 }
@@ -105,6 +97,10 @@ input{
     border-bottom: var(--border);
     margin: 1rem;
     padding: 1rem;
+    background-color: var(--secondary);
+}
+.label{
+    background-color: var(--secondary);
 }
 .buttons{
     background-color: var(--main);
