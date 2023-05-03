@@ -115,7 +115,9 @@ class Recipe {
 		case "south east asian":
 			individualRecipe.style.backgroundImage = "url(resources/southEastFood.jpg)"
 			break;
-		default:	
+		default:
+			individualRecipe.style.backgroundImage = "url(resources/default.jpg)"
+			break;
 	}
 };
 }
