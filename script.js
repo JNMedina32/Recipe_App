@@ -10,8 +10,6 @@ const savedRecipeArray = [];
 const savedContainer = document.querySelector('#savedRecipes');
 const refilterDiv = document.querySelector('#refilterDiv');
 const refilterBtn = document.querySelector('#refilterButton');
-let indvidualRecipe = document.createElement('div')
-indvidualRecipe.className = 'individualRecipe';
 //grabs the filter forms key and values pairs
 const formEl = document.querySelector('#recipeFilters');
 
