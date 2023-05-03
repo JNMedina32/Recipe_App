@@ -28,7 +28,7 @@ class Recipe {
 		this._ingredients += `</ul>`;
 		this._prep = recipe.recipe.url;
 		this._time = recipe.recipe.totalTime;
-		this._cuisineType = recipe.recipe.cuisineType[0];
+		this._cuisineType = recipe.recipe.cuisineType[recipe.recipe.cuisineType.length - 1];
 	}
 	get label(){return this._label}
 	get calories(){return this._calories}
@@ -45,7 +45,7 @@ class Recipe {
 		indvidualRecipe.className = 'individualRecipe';
 		indvidualRecipe.innerHTML += `
 		<h1 class="label">${this.label}</h1><br>
-		<img src=${this.imgSmall}><br>
+		<img src=${this.imgSmall} class="recipeImg"><br>
 		<p class='calories'><strong>Calories: ${this.calories}	<br> Time: ${this.time} mins</strong></p><br>
 		<div class='ingredients'>
 		<p>Ingredients: ${this.ingredients}</p>
@@ -57,75 +57,78 @@ class Recipe {
 		</div>
 		`;
 		resultContainer.append(indvidualRecipe);
-		changeBgImgforIndividualRecipe(this.cuisineType);
+		this.changeBgImgforIndividualRecipe(this.cuisineType, indvidualRecipe);
 	}
-}
-
-//changes the background for specific cuisineType
-function changeBgImgforIndividualRecipe(typeOfCuisine){
+	//changes the background for specific cuisineType
+ changeBgImgforIndividualRecipe(typeOfCuisine, individualRecipe){
+	console.log(typeOfCuisine);
 	switch (typeOfCuisine) {
 		case "american":
-			resultContainer.style.backgroundImage = "url(resources/americanFood.jpg)"
-			break;
+			individualRecipe.style.backgroundImage = "url(resources/americanFood.jpg)"
+			break;	
 		case "asian":
-			resultContainer.style.backgroundImage = "url(resources/asianFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/asianFood.jpg)"
 			break;
 		case "british":
-			resultContainer.style.backgroundImage = "url(resources/britishFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/britishFood.jpg)"
 			break;
 		case "caribbean":
-			resultContainer.style.backgroundImage = "url(resources/caribbeanFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/caribbeanFood.jpg)"
 			break;
 		case "central europe":
-			resultContainer.style.backgroundImage = "url(resources/centralFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/centralFood.jpg)"
 			break;
 		case "chinese":
-			resultContainer.style.backgroundImage = "url(resources/chineseFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/chineseFood.jpg)"
 			break;
 		case "eastern europe":
-			resultContainer.style.backgroundImage = "url(resources/easternFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/easternFood.jpg)"
 			break;
 		case "french":
-			resultContainer.style.backgroundImage = "url(resources/frenchFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/frenchFood.jpg)"
 			break;
 		case "indian":
-			resultContainer.style.backgroundImage = "url(resources/indianFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/indian.jpg)"
 			break;
 		case "italian":
-			resultContainer.style.backgroundImage = "url(resources/italianFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/italianFood.jpg)"
 			break;
 		case "japanese":
-			resultContainer.style.backgroundImage = "url(resources/japaneseFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/japaneseFood.jpg)"
 			break;
 		case "kosher":
-			resultContainer.style.backgroundImage = "url(resources/kosherFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/kosherFood.jpg)"
 			break;
 		case "mediterranean":
-			resultContainer.style.backgroundImage = "url(resources/mediterraneanFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/mediterraneanFood.jpg)"
 			break;
 		case "mexican":
-			resultContainer.style.backgroundImage = "url(resources/mexicanFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/mexicanFood.jpg)"
 			break;
 		case "middle eastern":
-			resultContainer.style.backgroundImage = "url(resources/middleFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/middleFood.jpg)"
 			break;
 		case "nordic":
-			resultContainer.style.backgroundImage = "url(resources/nordicFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/nordicFood.jpg)"
 			break;
 		case "south american":
-			resultContainer.style.backgroundImage = "url(resources/southFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/southFood.jpg)"
 			break;
 		case "south east asian":
-			resultContainer.style.backgroundImage = "url(resources/southEastFood.jpg)"
+			individualRecipe.style.backgroundImage = "url(resources/southEastFood.jpg)"
 			break;
 		default:	
 	}
 };
+}
+
+
 
 //hides the filter form and displays results
 function hideFilter(){
 	filterContainer.style.display = 'none';
 	refilterDiv.style.display = 'inline-block';
+	refilterBtn.style.display = 'inline-block';
 };
 
 /**
@@ -148,6 +151,7 @@ function displayMoreRecipes(hits){
 //shows the filter form and hides the refilterBtn
 refilterBtn.addEventListener('click', () => {
 	filterContainer.style.display = null;
+	refilterBtn.style.display = 'none';
 })
 
 //unique id for the loadMore button 
@@ -231,43 +235,54 @@ function nextRecipes(nextUrlToFetch) {
 }
 
 //displays localStorage on load using retrieveLocalStorage function
-window.addEventListener('load', () => {
-	retrieveLocalStorage();
-});
 //grabs the recipe info when called and saves to the localStorage and savedContainer 
 function saveRecipeToLocalStorage(recipeLabel, recipeThumb, recipeCalories, recipeUrl, id = "recipeID_" + Date.now()){
+	const savedRecipeDiv = document.createElement('div');
+	savedRecipeDiv.className = 'col';
+	savedRecipeDiv.setAttribute('id', 'savedRecipeDiv');
+	savedRecipeDiv.innerHTML = `
+		<h4>${recipeLabel}</h4>
+		<img src=${recipeThumb}><br>
+		<h4>Calories: ${recipeCalories}</h4>
+		<a href='${recipeUrl}' target="_blank" class='buttons2'>View</a>
+		<div class="buttons2" id="${id}">Delete</div>
+	`;
+	savedContainer.append(savedRecipeDiv);
+	const deleteSavedRecipeBtn = savedRecipeDiv.querySelector(`#${id}`);
+	deleteSavedRecipeBtn.addEventListener('click', () => {
+		savedRecipeDiv.remove();
+		const indexToRemove = savedRecipeArray.findIndex(recipe => recipe.label === recipeLabel);
+		savedRecipeArray.splice(indexToRemove, 1);
+		localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
+	});
+
 	savedRecipeArray.push({
-		label: recipeLabel, 
-		imgThumb: recipeThumb,
-		calories: recipeCalories,
-		url: recipeUrl,
-		id: id
+			label: recipeLabel, 
+			imgThumb: recipeThumb,
+			calories: recipeCalories,
+			url: recipeUrl,
+			id: id
 	});
 	localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
-	const savedRecipeDiv = document.createElement('div');
-			savedRecipeDiv.className = 'col';
-			savedRecipeDiv.setAttribute('id', 'savedRecipeDiv')
-			savedRecipeDiv.innerHTML = `<h4>${recipeLabel}</h4><img src=${recipeThumb}><br><h4>Calories: ${recipeCalories}</h4><a href='${recipeUrl}' target="_blank" class='buttons2'>View</a><div class="buttons2" id="${id}">Delete</div>`;
-			savedContainer.append(savedRecipeDiv);
-			const deleteSavedRecipeBtn = savedRecipeDiv.querySelector(`#${id}`);
-			deleteSavedRecipeBtn.addEventListener('click', () => {
-				savedRecipeDiv.remove();
-				const indexToRemove = savedRecipeArray.findIndex(recipe => recipe.label === recipeLabel);
-				savedRecipeArray.splice(indexToRemove, 1);
-				localStorage.setItem('savedRecipeArray', JSON.stringify(savedRecipeArray));
-			});
 }
+
 //displays all recipes in localStorage
 function retrieveLocalStorage(){
 	const savedRecipes = JSON.parse(localStorage.getItem('savedRecipeArray'));
 	if(savedRecipes){
-		savedRecipes.forEach((savedRecipe, index) => {
+		
+		savedRecipes.forEach((savedRecipe) => {
 			savedRecipeArray.push(savedRecipe);
 			const savedRecipeDiv = document.createElement('div');
 			savedRecipeDiv.className = 'savedRecipe';
-			savedRecipeDiv.innerHTML = `<h4>${savedRecipe.label}</h4><img src=${savedRecipe.imgThumb}><br><h4>Calories: ${savedRecipe.calories}</h4><a href='${savedRecipe.url}' target="_blank" class='buttons2'>View</a><div class="buttons2" id="deleteBtn${index}">Delete</div>`;
+			savedRecipeDiv.innerHTML = `
+				<h4>${savedRecipe.label}</h4>
+				<img src=${savedRecipe.imgThumb}><br>
+				<h4>Calories: ${savedRecipe.calories}</h4>
+				<a href='${savedRecipe.url}' target="_blank" class='buttons2'>View</a>
+				<div class="buttons2" id="deleteBtn${savedRecipe.id}">Delete</div>`;
 			savedContainer.append(savedRecipeDiv);
-			const deleteSavedRecipeBtn = savedRecipeDiv.querySelector(`#deleteBtn${index}`);
+			const deleteSavedRecipeBtn = savedRecipeDiv.querySelector(`#deleteBtn${savedRecipe.id}`);
 			deleteSavedRecipeBtn.addEventListener('click', () => {
 				savedRecipeDiv.remove();
 				const indexToRemove = savedRecipeArray.findIndex(recipe => recipe.label === savedRecipe.label);
@@ -276,4 +291,9 @@ function retrieveLocalStorage(){
 			});
 		});
 	}
-};
+}
+
+window.addEventListener('load', () => {
+	retrieveLocalStorage();
+});
+
