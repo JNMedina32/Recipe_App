@@ -38,12 +38,13 @@
           </div>
           <div class="col col-8" id="filterContainer">
             <h3>Filter the recipes as much as you'd like:</h3>
-            <div class="dishName">
-              <label for="dishName" class="filterTitle">Name or Type of Dish:</label>
-              <br>
-              <input type="text" name="dishName" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'"id="userInput">
-            </div>
+
             <form action="" id="recipeFilters">
+              <div class="q">
+                <label for="q" class="filterTitle">Name or Type of Dish:</label>
+                <br>
+                <input type="text" name="q" placeholder="e.g 'Chicken Vesuvio' or just 'chicken'"id="userInput">
+              </div>
               <p>and / or:</p>
               <div class="cuisineType">
                 <label for="cuisineType" class="filterTitle">Choose a Cuisine:</label>
@@ -152,11 +153,11 @@
               <div class="caloriesAndTime">
                 <label for="calories">Calories</label>
                 <br>
-                <input type="text" name="calories" placeholder="e.g. 250+ for a minimum OR 250-500 for a range">
+                <input type="text" name="calories" id="calories" placeholder="e.g. 250+ for a minimum OR 250-500 for a range">
                 <br>
                 <label for="time">Prep Time</label>
                 <br>
-                <input type="text" name="time">
+                <input type="text" name="time" id="time">
               </div>
               <br>
               <div class="submitBtn">

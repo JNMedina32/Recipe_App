@@ -59,7 +59,7 @@ class Recipe {
 	}
 	//changes the background for specific cuisineType
  changeBgImgforIndividualRecipe(typeOfCuisine, individualRecipe){
-	console.log(typeOfCuisine);
+	//console.log(typeOfCuisine);
 	switch (typeOfCuisine) {
 		case "american":
 			individualRecipe.style.backgroundImage = "url(resources/americanFood.jpg)"
@@ -160,7 +160,6 @@ let loadMoreId = 1;
 //grabs filters then fetches
 submitButton.addEventListener('click', (e) => {
 	e.preventDefault();
-	const userInput = document.querySelector('#userInput').value;
 	const paramArray = [];
 	for (let i = 0; i < formEl.elements.length; i++){
 		var e = formEl.elements[i];
@@ -169,22 +168,24 @@ submitButton.addEventListener('click', (e) => {
 		}
 	};
 
-	const queryStrings = paramArray.join('&');
-	
+	let queryStrings = paramArray.join('&');
+
 	async function submitBtn(){
-		const userInputQueryString = `&q=${encodeURIComponent(userInput)}`;
+		//console.log(queryStrings);
+
 		const nextURL = [];
 		try{
-			const response = await fetch(`${proxyServer}?${userInputQueryString}&${queryStrings}`);
-			
+			const response = await fetch(`${proxyServer}?${queryStrings}`);
+			console.log(`${proxyServer}?${queryStrings}`)
 			if(response.ok){
 				let jsonResponse = await response.json();
 				console.log(jsonResponse);
 				const hits = jsonResponse.hits;
 				nextURL.push(jsonResponse._links.next.href);
-				console.log(nextURL);
+				//console.log(nextURL);
 				if(hits.length < 1){
 					hideFilter();
+					resultContainer.style.display = 'inline-block';
 					resultContainer.innerHTML = `I apologize. Looks like there are no recipes that match your filters in this database <strong>:(</strong>`
 				}else {
 					displayRecipes(hits);
@@ -234,7 +235,7 @@ function nextRecipes(nextUrlToFetch) {
 	fetchNext();
 }
 
-//displays localStorage on load using retrieveLocalStorage function
+
 //grabs the recipe info when called and saves to the localStorage and savedContainer 
 function saveRecipeToLocalStorage(recipeLabel, recipeThumb, recipeCalories, recipeUrl, id = "recipeID_" + Date.now()){
 	const savedRecipeDiv = document.createElement('div');
